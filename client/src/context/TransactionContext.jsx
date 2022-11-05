@@ -11,7 +11,7 @@ const createEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
   const transactionsContract = new ethers.Contract(contractAddress, contractABI, signer);
-
+  console.log(transactionsContract)
   return transactionsContract;
 };
 
@@ -32,6 +32,8 @@ export const TransactionsProvider = ({ children }) => {
         const transactionsContract = createEthereumContract();
 
         const availableTransactions = await transactionsContract.getAllTransactions();
+
+        console.log(availableTransactions);
 
         const structuredTransactions = availableTransactions.map((transaction) => ({
           addressTo: transaction.receiver,
@@ -58,7 +60,7 @@ export const TransactionsProvider = ({ children }) => {
       if (!ethereum) return alert("Please install MetaMask.");
 
       const accounts = await ethereum.request({ method: "eth_accounts" });
-
+      console.log(accounts)
       if (accounts.length) {
         setCurrentAccount(accounts[0]);
 
