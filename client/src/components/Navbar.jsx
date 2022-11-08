@@ -2,22 +2,18 @@ import React from "react";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 import logo from "../../images/logo.png";
 
 const NavBarItem = ({ title, classprops }) => (
-  <li className={`mx-4 cursor-pointer ${classprops}`}>{title}</li>
+  <li className={`mx-4 cursor-pointer ${classprops}`}>
+    <Link to="market">{title}</Link>
+  </li>
 );
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = React.useState(false);
-  const Data = async () => {
-    const response = await axios.get(
-      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&fbclid=IwAR3kzGB82YTzbD47RHwCbmvlTVM8ILqIGK1XlVaDnvDLyYPFq2ko0JoTD4w"
-    );
-
-    console.log(response)
-  };
 
   return (
     <nav className="w-full flex md:justify-center justify-between items-center p-4">
@@ -31,7 +27,13 @@ const Navbar = () => {
         <li className="bg-[#2952e3] py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#2546bd]">
           Login
         </li>
-        <button onClick={()=>{Data()}}>Get Data</button>
+        <button
+          onClick={() => {
+            Data();
+          }}
+        >
+          Get Data
+        </button>
       </ul>
       <div className="flex relative">
         {!toggleMenu && (
